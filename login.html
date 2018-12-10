@@ -23,6 +23,32 @@
 		</form>
 	</div>
 	<script>
+			var form_submit=document.getElementById('form');
+			form_submit.onsubmit=function () {
+				var warning=document.getElementById('warning');
+				warning.style.color="red";
+				var email=document.getElementsByClassName('form-control')[0].value;
+				var psw=document.getElementsByClassName('form-control')[1].value;
+				var regex_email = /[a-z]+@[a-z]+\.[a-z]/i;
+				var regex_psw = /^[a-zA-Z0-9]{8,}$/;
+				console.log(regex_psw);
+				var result1=regex_email.test(email);
+				var result2=regex_psw.test(psw);
+				console.log(result1 +' '+ result2);
+				if(result2==true && result1==true){
+					return true
+				}
+				else if(result2==false && result1==false){
+					warning.innerText="Invalid email and Password!" 
+				}
+				else if(result2==false && result1==true){
+					warning.innerHTML="Invalid Password! <br> Password should be atleast 8 characters long";	
+				}
+				else if(result2==true && result1==false){
+					warning.innerHTML="Invalid Email! <br> Enter Valid EmailId";	
+				}	
+				return false;
+			}
 	</script>
 </body>
 </html>
